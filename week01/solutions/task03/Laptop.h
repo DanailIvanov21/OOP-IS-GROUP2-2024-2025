@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 constexpr unsigned OS_SIZE = 8;
-
+constexpr unsigned SIZE = 32;
 enum class OperationSystem
 {
     NONE = -1,
@@ -13,10 +13,10 @@ enum class OperationSystem
 struct Laptop
 {
     double price;
-    char model[32];
+    char model[SIZE];
     int sizeOfScreen;
     int capacityOfHDD;
-    char videocard[32];
+    char videocard[SIZE];
     bool hasSSD;
     OperationSystem operationSystem;
 };
