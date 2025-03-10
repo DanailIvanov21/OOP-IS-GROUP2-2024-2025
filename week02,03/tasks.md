@@ -2,8 +2,8 @@
 Напишете програма, която записва и чете данни в текстов файл масиви от обекти на структура, която съдържа следната информация за един студент:
 
 firstName (char array)
-lastName (string)
-facultyNumber(string)
+lastName (char array)
+facultyNumber(char array)
 takenCourses(int)
 averageGrade(double)
 hasTakenAllCourses(bool)
