@@ -16,7 +16,7 @@ int getWordsCount(const char* fileName)
     int counter = 0;
     char word[MAX_WORD_SIZE];
 
-    while (ifs >> word)
+    while (ifs >> word) // >> omits '\t', ' ' and '\n'
     {
         ++counter;
     }
