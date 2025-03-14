@@ -9,7 +9,7 @@ bool copyFile(const char* source_filename, const char* destination_filename)
 
     if (!source_file.is_open()) 
     {
-        std::cerr << "Error opening source file." << std::endl; // cerr is error messege
+        std::cerr << "Error opening source file." << std::endl; // cerr is error message
 
         return false;
     }
