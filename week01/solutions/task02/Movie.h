@@ -1,6 +1,4 @@
 #pragma once
-
-
 #include <iostream>
 #include <cstring>
 
@@ -23,7 +21,6 @@ struct Movie
     Genre genre;
     double rating;
 };
-
 
 Movie createMovie(const char* title, unsigned int length, Genre genre, double rating);
 void printMovie(const Movie& movie);
