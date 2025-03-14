@@ -1,7 +1,5 @@
 #include "Movie.h"
 #define _CRT_SECURE_NO_WARNINGS
-#include <iostream>
-#include <cstring>
 
 Movie createMovie(const char* title, unsigned int length, Genre genre, double rating)
 {
