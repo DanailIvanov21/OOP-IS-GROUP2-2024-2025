@@ -3,7 +3,7 @@
 
 constexpr unsigned MAX_LINE_SIZE = 1024;
 
-bool copyFile(const char* source_filename, const char* destination_filename) 
+bool copyFile(const char* source_filename, const char* destination_filename) // it is bool so we can see if the operation is successful
 {
     std::ifstream source_file(source_filename);
 
