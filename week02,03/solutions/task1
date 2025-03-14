@@ -1,0 +1,69 @@
+#include <iostream>
+#include <fstream>
+#include <cstring>
+
+struct Student {
+    char firstName[30];
+    char lastName[30];
+    char facultyNumber[11];
+    unsigned takenCourses;
+    double averageGrade;
+    bool hasPassedAllCourses;
+};
+
+void writeStudentToFile(const Student& student, std::ofstream& stream) {
+    if (!stream.is_open() || !stream.good()) return;
+    stream << student.firstName << ' ' << student.lastName << ' '
+           << student.facultyNumber << ' ' << student.takenCourses << ' '
+           << student.averageGrade << ' ' << student.hasPassedAllCourses << '\n';
+}
+
+bool readStudentFromFile(std::ifstream& stream, Student& student) {
+    if (!(stream >> student.firstName >> student.lastName >> student.facultyNumber
+                 >> student.takenCourses >> student.averageGrade >> student.hasPassedAllCourses)) {
+        return false;
+    }
+    return true;
+}
+
+void printStudent(const Student& student) {
+    std::cout << "Name: " << student.firstName << " " << student.lastName << "\n"
+              << "FN: " << student.facultyNumber << "\n"
+              << "Average grade: " << student.averageGrade << "\n"
+              << "Taken courses: " << student.takenCourses << "\n"
+              << "Has passed all courses: " << std::boolalpha << student.hasPassedAllCourses << "\n";
+}
+
+int main() {
+    const int MAX_STUDENTS = 3;
+    Student students[MAX_STUDENTS] = {
+        {"Ivan", "Marinov", "2MI0724156", 5, 5.23, true},
+        {"Kiril", "Ivanov", "0MI0726156", 2, 4.23, false},
+        {"Monika", "Stefanova", "2MI0725156", 10, 4.23, true}
+    };
+
+    std::ofstream outStream("students.txt", std::ios::out | std::ios::trunc);
+    if (!outStream.is_open()) return -1;
+
+    for (int i = 0; i < MAX_STUDENTS; ++i) {
+        writeStudentToFile(students[i], outStream);
+    }
+    outStream.close();
+
+    std::ifstream inStream("students.txt", std::ios::in);
+    if (!inStream.is_open()) return -1;
+
+    Student loadedStudents[MAX_STUDENTS];
+    int count = 0;
+    while (count < MAX_STUDENTS && readStudentFromFile(inStream, loadedStudents[count])) {
+        count++;
+    }
+    inStream.close();
+
+    for (int i = 0; i < count; ++i) {
+        printStudent(loadedStudents[i]);
+        std::cout << "\n";
+    }
+
+    return 0;
+}
