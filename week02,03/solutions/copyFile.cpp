@@ -1,7 +1,4 @@
-#include <iostream>
-#include <fstream>
-
-constexpr unsigned MAX_LINE_SIZE = 1024;
+#include "copyFile.h"
 
 bool copyFile(const char* source_filename, const char* destination_filename) // it is bool so we can see if the operation is successful
 {
@@ -37,9 +34,4 @@ bool copyFile(const char* source_filename, const char* destination_filename) // 
     std::cout << "File copied successfully." << std::endl;
 
     return true;
-}
-
-int main()
-{
-    
 }
