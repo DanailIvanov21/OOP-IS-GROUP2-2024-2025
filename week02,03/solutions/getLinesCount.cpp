@@ -12,7 +12,7 @@ int getLinesCount(std::ifstream& file)
 
     int count = 0;
 
-    int currentPossition = file.tellg();
+    long long currentPossition = file.tellg();
     file.seekg(std::ios::beg);
 
     while (!file.eof())
