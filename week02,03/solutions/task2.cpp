@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
+
 const int BUFF_SIZE = 1024;
+
 void replace(const char* filename, const char* find, const char* replace)
 {
     std::ifstream file(filename);
@@ -32,9 +34,9 @@ void replace(const char* filename, const char* find, const char* replace)
         }
  
     }
+
     file.close();
-    editedFile.close();
- 
+    editedFile.close(); 
 }
  
 int main()

@@ -15,20 +15,28 @@ struct TypesCount
 bool isWordType(const char* type, std::ifstream& stream)
 {
 	if (type == nullptr)
+	{
 		return false;
+	}
 
 	if (stream.peek() != *type)
+	{
 		return false;
+	}
 
-	std::ios::streampos begPos = stream.tellg();
+	std::streampos begPos = stream.tellg();
+
 	while (stream.good() && !stream.eof())
 	{
 		if (*type == '\0')
+		{
 			break;
+		}
 
 		if (*type != stream.get())
 		{
 			stream.seekg(begPos, std::ios::beg);
+
 			return false;
 		}
 
@@ -38,6 +46,7 @@ bool isWordType(const char* type, std::ifstream& stream)
 	if (*type != '\0' || stream.peek() != ' ')
 	{
 		stream.seekg(begPos, std::ios::beg);
+
 		return false;
 	}
 
@@ -51,7 +60,9 @@ TypesCount calculateTypesCount()
 	TypesCount count;
 
 	if (!sourceCode.is_open())
+	{
 		return count;
+	}
 
 	while (sourceCode.good() && !sourceCode.eof())
 	{
@@ -71,9 +82,9 @@ int main()
 {
 	TypesCount count = calculateTypesCount();
 
-	std::cout << "Bool count " << count.boolCount << "\n";
-	std::cout << "Int count " << count.integerCount << "\n";
-	std::cout << "Double count " << count.floatingCount << "\n";
+	std::cout << "Bool count " << count.boolCount << std::endl;
+	std::cout << "Int count " << count.integerCount << std::endl;
+	std::cout << "Double count " << count.floatingCount << std::endl;
 	std::cout << "Char count " << count.charcterCount << std::endl;
 
 	double test;
