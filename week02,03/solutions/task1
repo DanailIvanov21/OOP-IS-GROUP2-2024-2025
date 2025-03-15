@@ -4,6 +4,7 @@
 
 constexpr unsigned MAX_LENGHT_NAME = 32;
 constexpr unsigned FACULTY_NUMBER_LENGHT = 11;
+
 struct Student {
     char firstName[MAX_LENGHT_NAME];
     char lastName[MAX_LENGHT_NAME];
