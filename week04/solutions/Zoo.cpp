@@ -34,7 +34,7 @@ struct Zoo
 void writeAnimals(const char* fileName, const size_t animalCount, const Animal* animals)
 {
 	std::ofstream out(fileName, std::ios::binary);
-	if (out.is_open())
+	if (!out.is_open())
 	{
 		std::cout << "Error: Could not open file: " << fileName << std::endl;
 		return;
@@ -56,7 +56,7 @@ void writeAnimals(const char* fileName, const size_t animalCount, const Animal* 
 void writeEmployees(const char* fileName, const size_t employeeCount, const Person* employees)
 {
 	std::ofstream out(fileName, std::ios::binary);
-	if (out.is_open())
+	if (!out.is_open())
 	{
 		std::cout << "Error: Could not open file: " << fileName << std::endl;
 		return;
@@ -116,7 +116,7 @@ void writeZoo(const char* fileName, const Zoo& zoo)
 Person* readEmployees(const char* fileName)
 {
 	std::ifstream in(fileName, std::ios::binary);
-	if (in.is_open())
+	if (!in.is_open())
 	{
 		std::cout << "Error: Could not open file: " << fileName << std::endl;
 		return nullptr;
@@ -146,7 +146,7 @@ Person* readEmployees(const char* fileName)
 Animal* readAnimals(const char* fileName)
 {
 	std::ifstream in(fileName, std::ios::binary);
-	if (in.is_open())
+	if (!in.is_open())
 	{
 		std::cout << "Error: Could not open file: " << fileName << std::endl;
 		return nullptr;
