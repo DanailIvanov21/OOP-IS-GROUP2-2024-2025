@@ -12,7 +12,7 @@ struct Student
     double avgGrade;
 };
 
-void writeFile(const Student* students, int count, std::ofstream& out)
+void writeStudentsToFile(const Student* students, int count, std::ofstream& out)
 {
     out.write((const char*)students, count * sizeof(Student));
 }
@@ -23,10 +23,11 @@ size_t getFileSize(std::ifstream& file)
     file.seekg(0, std::ios::end);
     size_t size = file.tellg();
     file.seekg(curr, std::ios::beg);
+    
     return size;
 }
 
-void readFile(Student*& ptr, size_t& studentsCount, std::ifstream& in)
+void readStudentsFromFile(Student*& ptr, size_t& studentsCount, std::ifstream& in)
 {
     size_t sizeFile = getFileSize(in);
     studentsCount = sizeFile / sizeof(Student);
@@ -55,18 +56,20 @@ int* extractFacultyNumbers(const Student* students, size_t count)
     {
         arrayOfNumbers[i] = students[i].facNum;
     }
+    
     return arrayOfNumbers;
 }
 
 int* processFacultyData(Student*& student, std::ifstream& in)
 {
     size_t studentsCount;
-    readFile(student, studentsCount, in);
+    readStudentsFromFile(student, studentsCount, in);
     sortStudentsByGrade(student, studentsCount);
+    
     return extractFacultyNumbers(student, studentsCount);
 }
 
-void inputStudentData(Student* students, int count)
+void inputStudentsData(Student* students, int count)
 {
     for (int i = 0; i < count; i++)
     {
@@ -100,7 +103,8 @@ int main()
         std::cout << "Error opening file!" << std::endl;
         return -1;
     }
-    writeFile(students, count, out);
+    
+    writeStudentsToFile(students, count, out);
     out.close();
 
     std::ifstream in("students.bin", std::ios::binary);
@@ -118,6 +122,7 @@ int main()
     }
 
     in.close();
+    
     delete[] arrayOfFacultyNumbers;
     delete[] students;
 }
