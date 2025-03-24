@@ -1,222 +1,112 @@
-pragma once
-#ifndef EVENT_H
-#define EVENT_H
-#include <cstring>
-#include <iostream>
-
-class Event {
-
-private:
-	char* event;
-
-public:
-	Event();
-	Event(const char* event);
-	~Event();
-
-	void setEvent(const char* event);
-	const char* getEvent()const;
-
-	void cpyEvent(const Event& event);
-	void printEvent()const;
-};
-
-#endif // EVENT_H
-
-
-
-
-________
-#include "Event.h"
-
-
-Event::Event() {
-
-	const size_t max = 7;
-	event = new char[max + 1];
-	strcpy_s(event, max + 1, "koncert");
-}
-
-Event::Event(const char* event) {
-
-	size_t size = strlen(event);
-	this->event = new char[size + 1];
-	strcpy_s(this->event, size + 1, event);
-}
-
-Event::~Event() {
-
-
-	delete[] this->event;
-	
-}
-
-void Event::setEvent(const char* event) {
-
-	size_t size = strlen(event);
-	this->event = new char[size + 1];
-	strcpy_s(this->event, size + 1, event);
-}
-
-const char* Event::getEvent()const {
-
-	return this->event;
-}
-
-void Event::cpyEvent(const Event& event) {
-
-	setEvent(event.getEvent());
-}
-
-void Event::printEvent()const {
-
-	std::cout << event << std::endl;
-}
-
-
---------
 #pragma once
-#ifndef EVENT_LOG_H
-#define EVENT_LOG_H
-#include "Event.h"
+#include <iostream>
+#include <cstring>
 
-class EventLog {
-
+struct Event {
 private:
-	Event* events;
-	size_t currentSize;
-	size_t capacity;
+    char* description;
 
 public:
-	EventLog();
-	EventLog(Event* events, size_t currentSize, size_t capacity);
-	~EventLog();
+    Event() : description(nullptr) {} // Дефолтен конструктор
 
-	void addEvent(const Event& event);
-	void print()const;
-	void setSize(size_t size);
-	void setCapacity(size_t cap);
+    Event(const char* desc) {
+        setDescription(desc);
+    }
 
-	Event getEventAt(size_t index)const;
-	size_t getSize()const;
-	size_t getCapacity()const;
+    ~Event() {
+        delete[] description;
+    }
+
+    void setDescription(const char* desc) {
+        if (description){
+            delete[] description;
+	}
+        if (desc && strlen(desc) > 0) {
+            description = new char[strlen(desc) + 1];
+            strcpy(description, desc);
+        } else {
+            description = nullptr;
+        }
+    }
+
+    const char* getDescription() const {
+        return description;
+    }
+
+    void print() const {
+        std::cout << getDescription() << std::endl;
+    }
 };
 
-#endif // EVENT_LOG_H
+struct EventLog {
+private:
+    Event* events;
+    int size;
+    int capacity;
 
-_______
-#include "EventLog.h"
+public:
+    EventLog() : events(nullptr), size(0), capacity(1) {}
 
-EventLog::EventLog() {
+    ~EventLog() {
+        delete[] events;
+    }
 
-	capacity = 1;
-	currentSize = 1;
-	events = new Event[capacity];
-	events[0].setEvent("koncert");
+    void setSize(int newSize) {
+	    size = newSize; 
+    }
+    int getSize() const { 
+	    return size;
+    }
+
+    void setCapacity(int newCapacity) {
+	    capacity = newCapacity; 
 }
+    int getCapacity() const {
+	    return capacity;
+    }
 
-EventLog::EventLog(Event* events, size_t currentSize, size_t capacity)
-	: currentSize(currentSize), capacity(capacity) {
+    void addEvent(const char* desc) {
+        if (desc == nullptr || strlen(desc) == 0) {
+            std::cout << "Invalid event description!" << std::endl;
+            return;
+        }
 
-	if (currentSize > capacity) {
-		this->capacity = currentSize;
-		this->currentSize = capacity;
-	}
+        if (size == capacity) {
+            int newCapacity = capacity * 2;
+            Event* newEvents = new Event[newCapacity];
 
-	this->events = new Event[this->capacity];
+            for (int i = 0; i < size; ++i) {
+                newEvents[i] = events[i];
+            }
 
-	for (size_t i = 0; i < currentSize; ++i) {
-		this->events[i].cpyEvent(events[i]);
-	}
-}
+            delete[] events;
+            events = newEvents;
+            capacity = newCapacity;
+        }
 
-EventLog::~EventLog() {
+        events[size++].setDescription(desc);
+    }
 
-	currentSize = 0;
-	capacity = 0;
-	delete[] events;
-}
-
-void EventLog::addEvent(const Event& event) {
-
-	if (currentSize == capacity) {
-		return;
-	}
-
-	events[currentSize].cpyEvent(event);
-	++currentSize;
-}
-
-void EventLog::print()const {
-
-	for (size_t i = 0; i < currentSize; ++i) {
-		events[i].printEvent();
-	}
-}
-
-void EventLog::setSize(size_t size) {
-
-	if (size > 0 && size < capacity) {
-		currentSize = size;
-	}
-}
-
-void EventLog::setCapacity(size_t cap) {
-
-	if (cap > 0 && cap > capacity) {
-		capacity = cap;
-	}
-}
-
-Event EventLog::getEventAt(size_t index)const {
-
-	if (index < 0 || index > currentSize) {
-		// throw "Invalid index";
-		std::cout << "Invalid index!\n";
-		return events[0];
-	}
-
-	return events[index];
-}
-
-size_t EventLog::getSize()const {
-
-	return currentSize;
-}
-
-size_t EventLog::getCapacity()const {
-
-	return capacity;
-}
-
-
------
-
-
-#include <iostream>
-#include"EventLog.h"
-
-const size_t Size = 3;
-const size_t Capacity = 5;
+    void print() const {
+        if (size == 0) {
+            std::cout << "No events recorded." << std::endl;
+            return;
+        }
+        for (int i = 0; i < size; ++i) {
+            std::cout << "Event " << (i + 1) << ": ";
+            events[i].print();
+        }
+    }
+};
 
 int main() {
+    EventLog log;
+    log.addEvent("Conference");
+    log.addEvent(""); // Invalid event
+    log.addEvent("Meeting with Team");
+    log.addEvent("Project Deadline");
 
-	Event e1("match");
-	Event e2("concert");
-	Event e3("exam");
+    log.print();
 
-	Event events[Size];
-	events[0].cpyEvent(e1);
-	events[1].cpyEvent(e2);
-	events[2].cpyEvent(e3);
-
-	EventLog log(events, Size, Capacity);
-
-	Event e4("wedding");
-
-	log.addEvent(e4);
-	log.print();
-
-	return 0;
+    return 0;
 }
-
