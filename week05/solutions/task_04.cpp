@@ -3,11 +3,9 @@
 #include <cstring>
 
 struct Event {
-private:
     char* description;
 
-public:
-    Event() : description(nullptr) {} // Дефолтен конструктор
+    Event() : description(nullptr) {} 
 
     Event(const char* desc) {
         setDescription(desc);
@@ -39,12 +37,10 @@ public:
 };
 
 struct EventLog {
-private:
     Event* events;
     int size;
     int capacity;
 
-public:
     EventLog() : events(nullptr), size(0), capacity(1) {}
 
     ~EventLog() {
@@ -97,6 +93,15 @@ public:
             events[i].print();
         }
     }
+Event getEventAt(size_t index)const {
+
+	if (index < 0 || index >= size) {
+		std::cout << "Invalid index!\n";
+		return Event();
+	}
+
+	return events[index];
+}
 };
 
 int main() {
