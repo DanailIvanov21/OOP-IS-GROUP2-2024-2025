@@ -13,7 +13,7 @@ Person::Person(const char* firstName, const char* lastName, Gender gender, unsig
 
 Person::Person(const Person& other) :gender(other.gender),yearOfBirth(other.yearOfBirth)
 {
-    copyFrom(other);
+    copyDynamic(other);
 }
 
 Person::~Person()
@@ -26,7 +26,7 @@ Person& Person::operator=(const Person& other)
     if (this != &other)
     {
         freeMemory();
-        copyFrom(other);
+        copyDynamic(other);
         gender = other.gender;
         yearOfBirth = other.yearOfBirth;
     }
