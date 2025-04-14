@@ -17,15 +17,15 @@
 ### Задача 2
 Реализирайте клас Product, който съдържа следните член-данни:
 
-std::string name
+- name
 
-std::string type (например "храна", "напитка")
+- type (например "храна", "напитка")
 
-double weight
+- double weight
 
-int quantity
+- int quantity
 
-double price
+- double price
 
 Статични член-данни:
 
