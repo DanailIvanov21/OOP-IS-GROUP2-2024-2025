@@ -4,13 +4,9 @@
 Реализирайте следните член-функции:
 
 - pushBack(..)
-  
 - pushAt(..)
-  
 - popBack(..)
-  
-- popAt(..)
-  
+- popAt(..) 
 - operator[]
 - empty(..)
 - clear(..)
