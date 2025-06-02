@@ -3,14 +3,18 @@
 
 Реализирайте следните член-функции:
 
-pushBack(..)
-pushAt(..)
-popBack(..)
-popAt(..)
-operator[]
-empty(..)
-clear(..)
-swap(..)
+- pushBack(..)
+  
+- pushAt(..)
+  
+- popBack(..)
+  
+- popAt(..)
+  
+- operator[]
+- empty(..)
+- clear(..)
+- swap(..)
 
 ### Задача 2
 
